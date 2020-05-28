@@ -4,7 +4,7 @@ on:
   [push]
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "Azure Application Developer/Day 4 - GitHubActions/resources/ECommerce" 
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "Azure Application Developer" 
 
 jobs:
   build-and-deploy:
