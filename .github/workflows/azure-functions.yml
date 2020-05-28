@@ -3,6 +3,9 @@ name: Deploy DotNet project to Azure Function App
 on:
   [push]
 
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'Azure Application Developer\Day 4 - GitHubActions\resources\ECommerce\' 
+
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -12,7 +15,7 @@ jobs:
         run: |
           # If your function app project is not located in your repository's root
           # Please consider using pushd to change your path
-          pushd '.\Azure Application Developer\Day 4 - GitHubActions\resources\ECommerce\'
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output
           popd
 
