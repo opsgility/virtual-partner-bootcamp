@@ -238,7 +238,7 @@ In terms of Secure Cloud Application requirements, a few things are clear:
 Locking down a Secure Cloud Application Strategy is the primary concern right now however, Contoso is growing - fast - so consideration for scale and performance should be included during design.
 
 ### Contoso Current High-level Architecture
-![image info](./images/ContosoHighlevelSecurity.png)  
+![image info](./images/ContosoHighlevelSecurity.PNG)  
 
 ## Step 2: Design a Solution 
 

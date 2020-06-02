@@ -366,7 +366,7 @@ In terms of Secure Cloud Application requirements, a few things are clear:
 Locking down a Secure Cloud Application Strategy is the primary concern right now however, Contoso is growing - fast - so consideration for scale and performance should be included during design.
 
 ### Contoso Current High-level Architecture
-![image info](./images/ContosoHighlevelSecurity.png)  
+![image info](./images/ContosoHighlevelSecurity.PNG)  
 
 ## Step 2: Design a Solution 
 
@@ -856,7 +856,7 @@ The configuration Provider is in this package: **Microsoft.Extensions.Configurat
 
 For context, consider this image from Microsoft: 
 
-![image info](./images/ApptoAKVAccess.png)
+![image info](./images/ApptoAKVAccess.PNG)
 
 Once this configuration is set up, applications can then query an AKV instance using pre-built client libraries configured to send secured requests to the AKV REST API under the security context of the aforementioned managed identity.   
 
