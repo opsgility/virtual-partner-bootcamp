@@ -41,6 +41,9 @@ echo "CLIENT_SECRET ready: ${CLIENT_SECRET}"
 SP_ID=$(az ad sp show --id "http://$SP_NAME" -o json | jq -r .appId)
 echo "SP_ID: ${SP_ID}"
 
+echo "Wait two minutes for propagation...
+sleep 120
+
 # Create a cluster with zonal support
 echo "Creating cluster $AKS_RESOURCE in $REGION_NAME..."
 az aks create \
