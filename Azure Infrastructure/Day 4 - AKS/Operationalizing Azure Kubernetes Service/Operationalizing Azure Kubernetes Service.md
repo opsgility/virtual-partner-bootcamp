@@ -41,6 +41,9 @@ echo "CLIENT_SECRET ready: ${CLIENT_SECRET}"
 SP_ID=$(az ad sp show --id "http://$SP_NAME" -o json | jq -r .appId)
 echo "SP_ID: ${SP_ID}"
 
+echo "Sleep for 2 minutes..."
+sleep 120
+
 echo "Creating AKS cluster..."
 az aks create \
     --resource-group $RESOURCE_GROUP \
@@ -89,11 +92,15 @@ serverAppSecret=$(az ad sp credential reset \
     --credential-description "AKSPassword" \
     --query password -o tsv)
 
+echo "serverAppId: $serverAppId"
+echo "serverAppSecret: $serverAppSecret"
+
 az ad app permission add \
     --id $serverAppId \
     --api 00000003-0000-0000-c000-000000000000 \
     --api-permissions e1fe6dd8-ba31-4d61-89e7-88639da4683d=Scope 06da0dbc-49e2-44d2-8312-53f166ab848a=Scope 7ab1d382-f21e-4acd-a863-ba3e13f7da61=Role
 
+echo "Provide admin consent..."
 az ad app permission grant --id $serverAppId \
     --api 00000003-0000-0000-c000-000000000000
 az ad app permission admin-consent --id $serverAppId
@@ -109,8 +116,10 @@ az ad sp create --id $clientAppId
 oAuthPermissionId=$(az ad app show --id $serverAppId \
     --query "oauth2Permissions[0].id" -o tsv)
 
+echo "Adding permission..."
 az ad app permission add --id $clientAppId --api $serverAppId \
     --api-permissions ${oAuthPermissionId}=Scope
+echo "Granting permission..."
 az ad app permission grant --id $clientAppId --api $serverAppId
 
 echo "Sleep for 2 minutes..."
@@ -172,6 +181,7 @@ az aks create \
 1. Get the admin creds:
 
     ```sh
+    aksname="aksAADCluster"
     az aks get-credentials --resource-group clusterAADRG --name $aksname --admin
     ```
 
