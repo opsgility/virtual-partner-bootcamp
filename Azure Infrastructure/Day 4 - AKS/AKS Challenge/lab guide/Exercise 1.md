@@ -8,11 +8,18 @@ A new customer, Fruit Smashers, has approached to you take on the management and
 
 ## Accessing Microsoft Azure
 
-Launch Chrome from the virtual machine desktop and navigate to the URL below. Your Azure Credentials are available by clicking the Cloud Icon at the top of the Lab Player.
+Launch Chrome from your desktop and navigate to the URL below. Your Azure Credentials are available by clicking the Cloud Icon at the top of the Lab Player.
 
 ```sh
 https://portal.azure.com
 ```
+
+This deployment was executed from the VM `challengeloader` in the `challengedeployrg` resource group. This VM has all of the required tooling installed you will need for the completion of this challenge such as the Azure CLI and kubectl.
+
+You can SSH to the VM using the following credentials:
+
+- Username: **demouser**
+- Password: **demo@pass123**
 
 ## Challenge 1: Implementing AKS to meeting customer requirements
 
@@ -96,4 +103,5 @@ After you have completed the challenge, click the **Mark complete** button to in
 ## Help Resources
 
 - <a href="https://docs.microsoft.com/azure/aks/intro-kubernetes" target="_blank">Azure Kubernetes Service (AKS)</a>
+- <a href="https://docs.microsoft.com/azure/aks/managed-aad" target="_blank">Integrate Azure AD in Azure Kubernetes Service (Preview)</a>
 - <a href="https://docs.microsoft.com/azure/sql-database/sql-database-technical-overview" target="_blank">What is the Azure SQL Database service?</a>

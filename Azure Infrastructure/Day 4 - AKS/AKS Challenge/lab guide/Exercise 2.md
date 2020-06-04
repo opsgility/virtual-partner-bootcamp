@@ -45,6 +45,8 @@ After you have completed the challenge, click the **Mark complete** button to in
 
 ## Help Resources
 
+- <a href="https://docs.microsoft.com/azure/aks/operator-best-practices-advanced-scheduler" target="_blank">Best practices for advanced scheduler features in Azure Kubernetes Service (AKS)</a>
 - <a href="https://docs.microsoft.com/azure/aks/operator-best-practices-multi-region" target="_blank">Best practices for business continuity and disaster recovery in Azure Kubernetes Service (AKS)</a>
 - <a href="https://docs.microsoft.com/azure/aks/use-multiple-node-pools" target="_blank">Create and manage multiple node pools for a cluster in Azure Kubernetes Service (AKS)</a>
+- <a href="https://kubernetes.io/docs/tutorials/stateless-application/guestbook/" target="_blank">Example: Deploying PHP Guestbook application with Redis</a>
 - <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/" target="_blank">Taints and Tolerations</a>
