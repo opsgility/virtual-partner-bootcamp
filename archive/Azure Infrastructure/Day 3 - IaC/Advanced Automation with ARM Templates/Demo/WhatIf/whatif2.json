@@ -1,0 +1,268 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "defaultValue": "demouser",
+      "metadata": {
+        "description": "The name of the administrator account of each VM"
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "defaultValue": "Demo!pass123",
+      "metadata": {
+        "description": "The password for the administrator account of each VM"
+      }
+    },
+    "WindowsVMName": {
+      "type": "string",
+      "defaultValue": "WindowsVM",
+      "minLength": 1
+    },
+    "LinuxVMName": {
+      "type": "string",
+      "defaultValue": "LinuxVM",
+      "minLength": 1
+    },
+    "VMStorageType": {
+      "type": "string",
+      "defaultValue": "Premium_LRS",
+      "allowedValues": [
+        "Premium_LRS",
+        "StandardSSD_LRS",
+        "Standard_LRS"
+      ]
+    }
+  },
+  "variables": {
+    "VnetName": "WhatIfVnet",
+    "VnetAddressRange": "10.0.0.0/16",
+    "VnetSubnet1Name": "Subnet1",
+    "VnetSubnet1AddressRange": "10.0.0.0/24",
+    "VnetSubnet2Name": "Subnet2",
+    "VnetSubnet2AddressRange": "10.0.1.0/24",
+    "VnetSubnet1ID": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('VnetSubnet1Name'))]",
+    "VnetSubnet2ID": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('VnetSubnet2Name'))]",
+
+    "NSGName": "WhatIfNSG",
+
+    "OSDiskNameSuffix": "-OSDisk",
+    "NicNameSuffix": "-NIC",
+
+    "VMSize": "Standard_D2s_v3",
+
+    "WinImagePublisher": "MicrosoftWindowsServer",
+    "WinImageOffer": "WindowsServer",
+    "WinImageSku": "2016-Datacenter",
+
+    "LinuxImagePublisher": "Canonical",
+    "LinuxImageOffer": "UbuntuServer",
+    "LinuxImageSku": "18.04-LTS"
+  },
+  "resources": [
+    {
+      "apiVersion": "2018-06-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('NSGName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "webrule",
+            "properties": {
+              "description": "This rule allows traffic in on ports 80 and 443",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRanges": ["80", "443"],
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[variables('VnetName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-06-01",
+      "dependsOn": [
+        "[variables('NSGName')]"
+      ],
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('VnetAddressRange')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('VnetSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VnetSubnet1AddressRange')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('NSGName'))]"
+              }
+            }
+          },
+          {
+            "name": "[variables('VnetSubnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('VnetSubnet2AddressRange')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat(parameters('WindowsVMName'), variables('NicNameSuffix'), '1')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-06-01",
+      "dependsOn": [
+        "[variables('VnetName')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('VnetSubnet1ID')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat(parameters('LinuxVMName'), variables('NicNameSuffix'))]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-06-01",
+      "dependsOn": [
+        "[variables('VnetName')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "primary": true,
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('VnetSubnet2ID')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('WindowsVMName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-06-01",
+      "dependsOn": [
+        "[concat(parameters('WindowsVMName'), variables('NicNameSuffix'), '1')]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('VMSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('WindowsVMName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('WinImagePublisher')]",
+            "offer": "[variables('WinImageOffer')]",
+            "sku": "[variables('WinImageSku')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[concat(parameters('WindowsVMName'), variables('OSDiskNameSuffix'))]",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "[parameters('VMStorageType')]"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('WindowsVMName'), variables('NicNameSuffix'), '1'))]",
+              "properties": {
+                "primary": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "[parameters('LinuxVMName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2018-06-01",
+      "dependsOn": [
+        "[concat(parameters('LinuxVMName'), variables('NicNameSuffix'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('VMSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('LinuxVMName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('LinuxImagePublisher')]",
+            "offer": "[variables('LinuxImageOffer')]",
+            "sku": "[variables('LinuxImageSku')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[concat(parameters('LinuxVMName'), variables('OSDiskNameSuffix'))]",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "[parameters('VMStorageType')]"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('LinuxVMName'), variables('NicNameSuffix')))]"
+            }
+          ]
+        }
+      }
+    },
+    {
+        "name": "[concat(parameters('LinuxVMName'), '/Microsoft.Authorization/lock')]",
+        "type": "Microsoft.Compute/virtualMachines/providers/locks",
+        "apiVersion": "2016-09-01",
+        "properties": {
+            "level": "CanNotDelete"
+        },
+        "dependsOn": [
+          "[parameters('LinuxVMName')]"
+        ]
+    }
+  ],
+  "outputs": {
+  }
+}

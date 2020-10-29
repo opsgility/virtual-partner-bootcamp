@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "policyDefinitionName": {
+            "type": "string"
+        },
+        "policyAssignmentName": {
+            "type": "string"
+        },
+        "mgScope": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "name": "[parameters('policyDefinitionName')]",
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "apiVersion": "2019-06-01",
+            "properties": {
+                "mode": "Indexed",
+                "displayName": "Demo Policy",
+                "description": "Demo policy definition, from template",
+                "policyRule": {
+                    "if": {
+                        "field": "location",
+                        "equals": "northeurope"
+                    },
+                    "then": {
+                        "effect": "deny"
+                    }
+                },
+                "parameters": {
+                }
+            }
+        },
+        {
+            "name": "[parameters('policyAssignmentName')]",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2019-06-01",
+            "properties": {
+                "displayName": "Demo Policy",
+                "description": "Demo Policy assignment, from template",
+                "policyDefinitionId": "[extensionResourceId(parameters('mgScope'), 'Microsoft.Authorization/policyDefinitions', parameters('policyDefinitionName'))]",
+                "enforcementMode": "Default"
+            },
+            "dependsOn": [
+                "[parameters('policyDefinitionName')]"
+            ]
+        }
+    ]
+}

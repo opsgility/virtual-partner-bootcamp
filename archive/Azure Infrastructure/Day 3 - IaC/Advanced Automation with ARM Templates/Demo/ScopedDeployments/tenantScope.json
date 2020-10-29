@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "mg1Name": {
+            "type": "string",
+            "defaultValue": "[concat('mg-', take(newGuid(), 4))]"
+        },
+        "mg2Name": {
+            "type": "string",
+            "defaultValue": "[concat('mg-', take(newGuid(), 4))]"
+        }
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Management/managementGroups",
+            "apiVersion": "2019-11-01",
+            "name": "[parameters('mg1Name')]",
+            "properties": {
+                "displayName": "Parent Management Group"
+            }
+        },
+        {
+            "type": "Microsoft.Management/managementGroups",
+            "apiVersion": "2019-11-01",
+            "name": "[parameters('mg2Name')]",
+            "properties": {
+                "displayName": "Child Management Group",
+                "details": {
+                    "parent": {
+                        "id": "[tenantResourceId('Microsoft.Management/managementGroups', parameters('mg1Name'))]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[parameters('mg1Name')]"
+            ]
+        }
+    ]
+}

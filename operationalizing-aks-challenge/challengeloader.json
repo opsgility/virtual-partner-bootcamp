@@ -1,0 +1,249 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location for all resources."
+            }
+        },
+        "loaderVmName": {
+            "type": "string",
+            "defaultValue": "challengeloader",
+            "metadata": {
+                "description": "Name of the loader vm"
+            }
+        },
+        "loaderVmSize": {
+            "type": "string",
+            "defaultValue": "Standard_D2s_v3",
+            "metadata": {
+                "description": "Size of the loader vm"
+            }
+        },
+        "loaderOsDiskType": {
+            "type": "string",
+            "defaultValue": "Premium_LRS",
+            "metadata": {
+                "description": "Disk type of the loader vm"
+            }
+        },
+        "loaderVmUsername": {
+            "type": "string",
+            "defaultValue": "demouser",
+            "metadata": {
+                "description": "Username for the loader vm"
+            }
+        },
+        "loaderVmPassword": {
+            "type": "securestring",
+            "defaultValue": "demo@pass123",
+            "metadata": {
+                "description": "The password for the administrator account of the loader vm"
+            }
+        },
+        "loaderInstallscriptUrl": {
+            "type": "string",
+            "metadata": {
+                "description": "Full path to script to execute"
+            },
+            "defaultValue": "https://raw.githubusercontent.com/opsgility/lab-support-public/master/akschallenge/ratingsapp/deploy.sh"
+        },
+        "loaderScriptFileName": {
+            "type": "string",
+            "metadata": {
+                "description": "Script to execute"
+            },
+            "defaultValue": "deploy.sh"
+        },
+        "subscriptionId": {
+            "type": "string",
+            "metadata": {
+                "description": "Subcription ID to deploy to"
+            },
+            "defaultValue": "[subscription().subscriptionId]"
+        }
+    },
+    "variables": {
+        "azureUserName": "",
+        "azurePassword": "",
+        "singleQuote": "'",
+        "vnetName": "challengeloader-vnet",
+        "vnetAddressPrefixes": "10.0.0.0/16",
+        "vnetSubnetPrefix": "10.0.0.0/24",
+        "vnetSubnetName": "default",
+        "publicIpAddressName": "challengeloader-ip",
+        "publicIpAddressSku": "Basic",
+        "publicIpAddressType": "Dynamic",
+        "networkSecurityGroupName": "challengeloader-nsg",
+        "networkSecurityGroupRules": [
+            {
+                "name":"SSH",
+                "properties": 
+                {
+                    "priority":300,
+                    "protocol":"TCP",
+                    "access":"Allow",
+                    "direction":"Inbound",
+                    "sourceAddressPrefix":"*",
+                    "sourcePortRange":"*",
+                    "destinationAddressPrefix":"*",
+                    "destinationPortRange":"22"
+                }
+            }
+        ],
+        "networkInterfaceName": "challengeloader-nic",
+        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('vnetName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('vnetSubnetName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('vnetName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('vnetAddressPrefixes')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('vnetSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('vnetSubnetPrefix')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIpAddresses",
+            "apiVersion": "2019-02-01",
+            "name": "[variables('publicIpAddressName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[variables('publicIpAddressSku')]"
+            },
+            "properties": {
+                "publicIpAllocationMethod": "[variables('publicIpAddressType')]"
+            }
+        },
+        {
+            "name": "[variables('networkSecurityGroupName')]",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-02-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "securityRules": "[variables('networkSecurityGroupRules')]"
+            }
+        },
+        {
+            "name": "[variables('networkInterfaceName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2019-07-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
+                "[concat('Microsoft.Network/virtualNetworks/', variables('vnetName'))]",
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIpAddress": {
+                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', variables('publicIpAddressName'))]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('nsgId')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('loaderVmName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('loaderVmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('loaderOsDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('loaderVmName')]",
+                    "adminUsername": "[parameters('loaderVmUsername')]",
+                    "adminPassword": "[parameters('loaderVmPassword')]"
+                }
+            },
+            "resources": [
+                {
+                    "name": "DeployLoader",
+                    "type": "extensions",
+                    "location": "[parameters('location')]",
+                    "apiVersion": "2016-03-30",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('loaderVmName'))]"
+                    ],
+                    "tags": {
+                        "displayName": "ConfigureVM"
+                    },
+                    "properties": {
+                        "publisher": "Microsoft.Azure.Extensions",
+                        "type": "CustomScript",
+                        "typeHandlerVersion": "2.0",
+                        "autoUpgradeMinorVersion": true,
+                        "settings": {
+                            "skipDos2Unix":false          
+                        },
+                        "protectedSettings": {
+                            "commandToExecute": "[concat('bash -c \"./', parameters('loaderScriptFileName'), ' -l ', parameters('location'), ' -u ', variables('singleQuote'), variables('azureUserName'), variables('singleQuote'),' -p ', variables('singleQuote'), variables('azurePassword'), variables('singleQuote'),' -s ', variables('singleQuote'), parameters('subscriptionId'),variables('singleQuote'),'\" >> /var/log/azure/aksloader.log 2>&1')]",
+                            "fileUris": ["[parameters('loaderInstallscriptUrl')]"]  
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "outputs": { 
+        "executedJob": {
+            "type": "string",
+            "value": "[concat('bash -c \"./', parameters('loaderScriptFileName'), ' -l ', parameters('location'), ' -u ', variables('singleQuote'), variables('azureUserName'), variables('singleQuote'),' -p ', variables('singleQuote'), variables('azurePassword'), variables('singleQuote'),' -s ', variables('singleQuote'), parameters('subscriptionId'),variables('singleQuote'),'\" >> /var/log/azure/aksloader.log 2>&1')]"
+        }
+    }
+}

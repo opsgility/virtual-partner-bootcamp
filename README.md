@@ -1,17 +1,15 @@
-# Bootcamp Content
+# Partner Bootcamp Content
 
-The following is content that is ready for review. There is other content in the repo that is being created/leverage but unless it is in the list below it is not ready for review.
-Feel free to add an issue with your feedback just note that due to time constraints we may not be able to leverage all feedback. The best feedback is improvements to the content without fundamentally changing the scenario.
 
 ## Content Status
 
-| Content                                                       | Track           | Current Status         | Location                                                                                             | Status Updated |
+| Content                                                       | Track           | Current Status         | Location                                                                                             | Next Update |
 |---------------------------------------------------------------|-----------------|------------------------|------------------------------------------------------------------------------------------------------|----------------|
-| Managing and Monitoring Azure Workloads (Whiteboard Design)   | Infrastructure  | Draft ready for review | [Link](Azure%20Infrastructure/Day%202%20-%20Operations/WDS)                                          | 05/17/2020     |
-| Operationalizing Azure Kubernetes Service (Presentation)      | Infrastructure  | Draft ready for review | [Link](Azure%20Infrastructure/Day%204%20-%20AKS/Operationalizing%20Azure%20Kubernetes%20Service)     | 05/17/2020     |
-| Operationalizing Azure Kubernetes Service (Whiteboard Design) | Infrastructure  | Draft ready for review | [Link](Azure%20Infrastructure/Day%204%20-%20AKS/Operationalizing%20Azure%20Kubernetes%20Service/WDS) | 05/17/2020     |
-| AKS Challenge                                                 | Infrastructure  | Draft ready for review | [Link](Azure%20Infrastructure/Day%204%20-%20AKS/AKS%20Challenge)                                     | 05/19/2020     |
-| Azure Sentinel Challenge                                      | Infrastructure  | Draft ready for review | [Link](Azure%20Infrastructure/Day%205%20-%20Security/Sentinel%20Challenge)                           | 05/17/2020     |
-| Keep in Touch Challenge                                       | Teams Developer | Draft ready for review | [Link](Teams%20Developer/Day3)                                                                       | 05/17/2020     |
+| Landing Zone (SMB) (Whiteboard Design)                        | Infrastructure  | In Development         | [Link](landing-zone-wds-light)                                                                       | 11/4/2020     |
+| Landing Zone (Enterprise) (Whiteboard Design)                 | Infrastructure  | In Development         | [Link](landing-zone-wds-enterprise)                                                                  | 11/4/2020     |
+| Operationalizing AKS - (Challenge)                            | Infrastructure  | Draft ready for review | [Link](operationalizing-aks-challenge)                                                               | 11/4/2020     |
+| Operationalizing AKS - (Whiteboard Design)                    | Infrastructure  | In Development         | [Link](operationalizing-aks-wds)                                                                     | 11/4/2020     |
+| Migration Lab                                                 | Infrastructure  | In Development         | [Link](https://github.com/microsoft/MCW-Line-of-business-application-migration/tree/oct-2020-update) | 10/30/2020    |
+| Lighthouse Challenge                                          | Infrastructure  | In Development         | TBD                                                                                                  | TBD           |
 
 > **Note:** More content will be added on a continual basis so please check back often.
