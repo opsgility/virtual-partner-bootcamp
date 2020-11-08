@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Landing Zones (Enterprise)
+Designing an Azure Landing Zone (Enterprise)
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Whiteboard design session student guide
 </div>
 
 <div class="MCWHeader3">
-Nov 2020
+November 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -25,18 +25,19 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 **Contents**
 
 <!-- TOC -->
-- [Landing Zones (Enterprise) - Whiteboard Design Session Student Guide](#landing-zones-enterprise---whiteboard-design-session-student-guide)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    - [Customer background](#customer-background)
-    - [Technical background](#technical-background)
-    - [Current situation](#current-situation)
-    - [Customer needs](#customer-needs)
-    - [Customer objections](#customer-objections)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-  - [Step 3: Present the solution](#step-3-present-the-solution)
-  - [Wrap-up](#wrap-up)
-  - [Additional references](#additional-references)
+
+- [Landing Zones Enterprise - Whiteboard Design Session Student Guide](#landing-zones-enterprise---whiteboard-design-session-student-guide)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+        - [Customer background](#customer-background)
+        - [Technical background](#technical-background)
+        - [Current situation](#current-situation)
+        - [Customer needs](#customer-needs)
+        - [Customer objections](#customer-objections)
+    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3-present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Additional references](#additional-references)
 
 <!-- /TOC -->
 
@@ -148,6 +149,11 @@ Timeframe: 60 minutes
 **Design**
 
 Directions: With all participants in your group, respond to the following questions on a flip chart or (virtual) white board.
+
+**High-Level architecture**
+
+Create a high-level architecture diagram and explanation of the components of your solution.
+
 
 1. **Management Access** Design a solution to allow CL operation team with access to the divisional subscriptions.
    - The solution should support role-based access control to ensure consistent and reportable access across the environments

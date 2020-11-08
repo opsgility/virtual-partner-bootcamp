@@ -1,7 +1,7 @@
 ![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Landing Zones (Enterprise)
+Designing an Azure Landing Zone (Enterprise)
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-Nov 2020
+November 2020
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -28,30 +28,32 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 <!-- TOC -->
 
 - [Trainer information](#trainer-information)
-  - [Role of the trainer](#role-of-the-trainer)
-  - [Whiteboard design session flow](#whiteboard-design-session-flow)
-  - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
-  - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [Landing Zones (Enterprise) whiteboard design session student guide](#landing-zones-enterprise-whiteboard-design-session-student-guide)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    - [Customer situation](#customer-situation)
-    - [Customer needs](#customer-needs)
-    - [Customer objections](#customer-objections)
-    - [Infographic for common scenarios](#infographic-for-common-scenarios)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-  - [Step 3: Present the solution](#step-3-present-the-solution)
-  - [Wrap-up](#wrap-up)
-  - [Additional references](#additional-references)
-- [Landing Zones (Enterprise) whiteboard design session trainer guide](#landing-zones-enterprise-whiteboard-design-session-trainer-guide)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  - [Step 3: Present the solution](#step-3-present-the-solution-1)
-  - [Wrap-up](#wrap-up-1)
-  - [Preferred target audience](#preferred-target-audience)
-  - [Preferred solution](#preferred-solution)
-  - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
-  - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
+    - [Role of the trainer](#role-of-the-trainer)
+    - [Whiteboard design session flow](#whiteboard-design-session-flow)
+    - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
+    - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
+- [Landing Zones Enterprise whiteboard design session student guide](#landing-zones-enterprise-whiteboard-design-session-student-guide)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+        - [Customer background](#customer-background)
+        - [Technical background](#technical-background)
+        - [Current situation](#current-situation)
+        - [Customer needs](#customer-needs)
+        - [Customer objections](#customer-objections)
+        - [Infographic for common scenarios](#infographic-for-common-scenarios)
+    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3-present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Additional references](#additional-references)
+- [Landing Zones Enterprise whiteboard design session trainer guide](#landing-zones-enterprise-whiteboard-design-session-trainer-guide)
+    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3-present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Preferred target audience](#preferred-target-audience)
+    - [Preferred solution](#preferred-solution)
+    - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
+    - [Customer quote to be read back to the attendees at the end](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
 <!-- /TOC -->
 
@@ -191,7 +193,39 @@ Directions:  With all participants in the session, the facilitator/SME presents 
 
 3.  As a table team, review the following customer case study.
 
-### Customer situation
+### Customer background
+
+Contoso Logistics (CL) is a Microsoft client providing a shipping, warehousing, and distribution solutions for various manufactures of consumer products with relationships to thousands of retail chains throughout the world.
+
+Contoso was founded in St. Louis in 1997, originally as Contoso Shipping. The original business was started as a trucking company providing on-time and reliable delivery services across the country. The success of efficient and consistent services to their clients continued to increase their business and alow them to expand beyond the continental US.  The international services were coordinated under a new subdivision as Contoso Shipping Logistics.
+
+The Founder of Contoso, Hugo Fisher, was quick to recognize that technology was a key piece of their services to ensure a reliable and on going service with their clients and have been quick to adopt technology solutions as they become available. In 2014 he re-branded the company as Contoso Logistics and set in place a new business strategy focusing on coordinating with partners and other shipping companies to track and optimizing customer inventories as a multimodal shipping provider. As the company has continued to expand international, their technology footprint and has continued to expand physically and requires many different compliance standards with different state entities. As these costs continue to expand, CL needs to find a way to reduce their physical footprint, work with a partner to ensure compliance & security evolving standards, and optimize costs & performance.  To satisfy these needs, they are looking to move as many services to the cloud as possible. Given CL’s long history as a Microsoft client, Microsoft Azure was the natural choice as preferred public cloud provider.
+
+CL has evolved to work with multiple different shipping and warehousing partners to connect manufactures with retail services for distributing their products. More recently CE has also seen a growth clients interested in their live tracking of products via a well defined API published securely with their partners, reflecting the company’s ongoing growth and success around transparent and reliable services.
+
+### Technical background
+
+The current CL portfolio of applications comprises:
+-   Web based application for tracking current location of inventory for manufactures and purchased equipment for their customers
+-   Legacy application for optimizing placement of physical equipment in modal containers for log distance shipping
+-   Due to different state based regulations, details of shipping and billing information is housed in separate application instances and databases in key countries
+-   Centralized tracking and core company details are housed in three redundant data centers geographically separated in the continental US: St. Louis (MO), Seattle (WA), and Richmond (VA)
+-   CL customers access details via Web Server farm based on .NET Framework and distributed behind F5 appliances
+-   Infrastructure consists of:
+    -   Each data center has 40 VM hosts and running 300 virtual machine guests
+    -   Datacenters are connected via an MPLS network
+    -   50 deployments of their key applications on 15 VMware virtual machines and 3 SQL servers
+    -   Each of the international locations connect back to the US datacenters via VPN connections utilizing Juniper devices
+-   Sales and remote users connect to the US data centers via VPN to access report and legacy inventory application
+-   Sales and coordinators access the legacy application via VPN to their local country's application
+
+![Contoso Corporate Data Locations](images/wds-lze-corporate-world-map-01.png)
+*Contoso Logistics data center and server locations*
+
+
+CL has an Enterprise Agreement with Microsoft for their applications and would like to utilize as much of their existing agreement benefits as possible.
+
+### Current situation
 
 As head of Infrastructure Operations for Contoso Logistics, you are responsible for keeping all your in-house and customer applications & data, secure and available 100% of the time, as well as ensuring all of your security comply with all relevant standards and regulations. As your business grows, you need to scale your operations activities accordingly—but you must minimize costs and staffing needs.
 
@@ -267,6 +301,10 @@ Directions: With all participants at your table, answer the following questions 
 **Design**
 
 Directions: With all participants at your table, respond to the following questions on a flip chart:
+
+**High-Level architecture**
+
+Create a high-level architecture diagram and explanation of the components of your solution.
 
 1. **Management Access** Design a solution to allow CL operation team with access to the divisional subscriptions.
    - The solution should support role-based access control to ensure consistent and reportable access across the environments
@@ -421,7 +459,11 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Preferred solution
 
-7. **Consistent Design** The solutions proposed should provide a consistent and reliable design for all remote environments.
+![High level diagram of an enterprise landing zone](images/wds-lze-high-level-architector-01.png "Preferred Solution")
+
+![High level diagram of an enterprise landing zone](images/wds-lze-high-level-architector-02.png "Preferred Solution")
+
+1. **Consistent Design** The solutions proposed should provide a consistent and reliable design for all remote environments.
    - There should be a standard, central designed that is repeated in each environment
    - The application is consistent around each environment, so the structure must be the same in each environment
    - Updates to the infrastructure should be possible without interruption and minimal affect to the existing environment

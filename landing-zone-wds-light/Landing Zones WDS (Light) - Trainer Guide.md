@@ -1,7 +1,7 @@
 ![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Landing Zones (Light)
+Designing an Azure Landing Zone (SMB)
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-Nov 2020
+November 2020
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -28,30 +28,32 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 <!-- TOC -->
 
 - [Trainer information](#trainer-information)
-  - [Role of the trainer](#role-of-the-trainer)
-  - [Whiteboard design session flow](#whiteboard-design-session-flow)
-  - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
-  - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
-- [Landing Zones (Light) whiteboard design session student guide](#landing-zones-light-whiteboard-design-session-student-guide)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    - [Customer situation](#customer-situation)
-    - [Customer needs](#customer-needs)
-    - [Customer objections](#customer-objections)
-    - [Infographic for common scenarios](#infographic-for-common-scenarios)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-  - [Step 3: Present the solution](#step-3-present-the-solution)
-  - [Wrap-up](#wrap-up)
-  - [Additional references](#additional-references)
-- [Landing Zones (Light) whiteboard design session trainer guide](#landing-zones-light-whiteboard-design-session-trainer-guide)
-  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study-1)
-  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution-1)
-  - [Step 3: Present the solution](#step-3-present-the-solution-1)
-  - [Wrap-up](#wrap-up-1)
-  - [Preferred target audience](#preferred-target-audience)
-  - [Preferred solution](#preferred-solution)
-  - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
-  - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
+    - [Role of the trainer](#role-of-the-trainer)
+    - [Whiteboard design session flow](#whiteboard-design-session-flow)
+    - [Before the whiteboard design session: How to prepare](#before-the-whiteboard-design-session-how-to-prepare)
+    - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
+- [Landing Zones Light whiteboard design session student guide](#landing-zones-light-whiteboard-design-session-student-guide)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+        - [Customer background](#customer-background)
+        - [Technical background](#technical-background)
+        - [Customer situation](#customer-situation)
+        - [Customer needs](#customer-needs)
+        - [Customer objections](#customer-objections)
+        - [Infographic for common scenarios](#infographic-for-common-scenarios)
+    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3-present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Additional references](#additional-references)
+- [Landing Zones Light whiteboard design session trainer guide](#landing-zones-light-whiteboard-design-session-trainer-guide)
+    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3-present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Preferred target audience](#preferred-target-audience)
+    - [Preferred solution](#preferred-solution)
+    - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
+    - [Customer quote to be read back to the attendees at the end](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
 <!-- /TOC -->
 
@@ -191,9 +193,33 @@ Directions:  With all participants in the session, the facilitator/SME presents 
 
 3.  As a table team, review the following customer case study.
 
+### Customer background
+
+Contoso Excursions (CE) is a Microsoft client providing a personalized service for customers looking for vacation, business travel, and adventure packages.
+
+Contoso was founded in Tampa in 2004, originally as Contoso Travel Services. The original business was started by former travel industry experts after the restructuring of the travel industry, providing high quality and optimized solutions for clientele. The personalized packaging services for affordable grouping saw welcomed growth and resurgence of people looking for good value and minimal details for international and unusual destinations with a personal touch and was expanded as an independent subsidiary as Contoso Travel Excursions.
+
+The Founder and CEO of Contoso, Emma Fox, was quick to recognize that technology and online presence would be key for providing detailed, efficient, and personalized solutions for their customers from the beginning and built their solutions on the Microsoft stack. In 2018 she re-branded the company as Contoso Excursions and set in place a new business strategy offering cloud-based and hybrid cloud services. Given CE’s long history as a Microsoft client, Microsoft Azure was the natural choice as preferred public cloud provider.
+
+CE has built a broad base of around key group of frequent travellers, as well as key international medium-sized businesses. More recently CE has also seen a growth via social media references and influencers, reflecting the company’s ongoing growth and success around personalized services.
+
+### Technical background
+
+The current CE application environment:
+-   Legacy on-premises applications hosted in CE's datacenters with a remote co-location facility for disaster recovery. The hardware in these datacenters are aging and due for lease returns at the end of the year. The strategy is to migrate these solutions to cloud-based infrastructure before the hardware's end of life and then migrate to platform services to take advantage of scaling and features, and eventually minimizing all virtual solutions.
+-   CE employees are based throughout the world and access the daily application and reports via a VPN connection to the primary data center.
+-   CE customers access details via an IIS web server farm with a firewall
+-   Infrastructure consists of 50 Hyper-V based production virtual machines as well as 4 physical servers consisting of two SQL clusters running SQL 2016 that run their core business applications and a data warehouse for reporting
+-   The data warehouse is fully refreshed weekly with exports from the production database
+
+![Contoso Excursions current on premise design](images/wds-lzl-current-design-01.png)
+*Contoso Excursions On-Premise Design*
+
+CE has an Enterprise Agreement with Microsoft for their applications and would like to utilize as much of their existing agreement benefits as possible.
+
 ### Customer situation
 
-As Directory of Information Technology for Contoso Excursions, you are responsible for keeping all your in-house and customer applications & services healthy, secure and available 100% of the time. As your business grows, you need to scale your operations activities accordingly—but you can only use the resources your already have.
+As Director of Information Technology for Contoso Excursions, you are responsible for keeping all your in-house and customer applications & services healthy, secure and available 100% of the time. As your business grows, you need to scale your operations activities accordingly—but you can only use the resources your already have.
 
 Currently, your team manages all technology equipment and customer connectivity--so as the number of customers grows, so does your workload.  Your hardware is already frequently maintaining 80% utilization during business hours and clients report sporadic timeouts at peak times.  The budgeted plan was only expected to refresh the hardware at the end of the year when the current lease ends.
 
@@ -258,6 +284,10 @@ Directions: With all participants at your table, answer the following questions 
 **Design**
 
 Directions: With all participants at your table, respond to the following questions on a flip chart:
+
+**High-Level architecture**
+
+Create a high-level architecture diagram and explanation of the components of your solution.
 
 1. **Follow Best Practices** The structure and deployment should follow best practices and published knowledge from experts.
    - The core design should be well documented and easily understood for future deployments and staff added at a later time.
@@ -408,6 +438,8 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 * Security - Information Security Manager
 
 ## Preferred solution
+
+![High level diagram of an enterprise landing zone](images/wds-lzl-proposed-solution-01.png "Preferred Solution")
 
 1. **Follow Best Practices** The structure and deployment should follow best practices and published knowledge from experts.
    - The core design should be well documented and easily understood for future deployments and staff added at a later time.
