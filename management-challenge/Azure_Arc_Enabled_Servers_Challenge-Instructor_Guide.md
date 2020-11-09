@@ -83,11 +83,12 @@ Once deployed, you will install the Azure Arc agent on the server and confirm th
     | --- | --- |
     | Name | **arcch-vm1** | 
     | Store the virtual machine in a different location | selected | 
+    | Connection | the nested virtual switch |
     | Location | **F:\VMs** |
     | Use an existing virtual disk | The full path to the downloaded VHD file |
 
 - Start and connect to the Hyper-V VM, set its name to **arch-vm1**, restart it and sign in back.
-- From the nested Hyper-V VM **arcchhv-vm**, disable Internet Explorer Enhanced Security, use Internet Explorer to navigate to the Azure portal, sign-in, and from a PowerShell session of Cloud Shell pane, run the following to create a resource group that will host resources representing the Azure Arc enabled servers:
+- From the nested Hyper-V VM **arch-vm1**, disable Internet Explorer Enhanced Security, use Internet Explorer to navigate to the Azure portal, sign-in, and from a PowerShell session of Cloud Shell pane, run the following to create a resource group that will host resources representing the Azure Arc enabled servers:
 
    ```pwsh
    $rgName = 'arc-chvm-rg'
